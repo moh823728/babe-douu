@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Douaa</title>
     
+    <!-- خطوط عربية فاخرة: خط أميري الكلاسيكي وخط تجوال العصري -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+
     <!-- استدعاء مكتبة Google Model Viewer ومفكك الضغط لـ Meshopt -->
     <script>
         self.ModelViewerElement = self.ModelViewerElement || {};
@@ -20,42 +25,180 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        html, body {
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
             width: 100%;
-            height: 100%;
-            height: 100dvh;
-            overflow: hidden;
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            overflow-y: auto;
             background: linear-gradient(135deg, #1c0d02, #3d1e0b, #2a1205);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             color: #ffffff;
             position: relative;
+            padding-bottom: 70px;
         }
 
         .mobile-container {
             width: 100%;
-            max-width: 430px;
-            height: 100%;
+            max-width: 440px;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             position: relative;
-            padding: 20px;
+            padding: 20px 20px 40px 20px;
             z-index: 2; /* حتى تكون المحتويات فوق تأثير الفراشات */
         }
 
-        /* تنسيق عنصر عرض الـ 3D في المنتصف تماماً */
+        /* تنسيق عنصر عرض الـ 3D في المنتصف */
         model-viewer {
             width: 100%;
             height: 380px;
             background-color: transparent;
             --poster-color: transparent;
-            --progress-bar-color: #e28743;
+            --progress-bar-color: #e2aa6e;
             --progress-bar-height: 3px;
+        }
+
+        /* زر فاخر وشفاف يواكب المظهر الأنيق */
+        .btn-wrapper {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .luxury-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(226, 170, 110, 0.45);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            color: #fff2e6;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            padding: 13px 40px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35), 0 0 20px rgba(226, 135, 67, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            outline: none;
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* تأثير إضاءة لامعة خفيفة للزر */
+        .luxury-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 40%;
+            height: 200%;
+            background: linear-gradient(
+                to right, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.25) 50%, 
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(25deg);
+            animation: shine 4s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -60%; }
+            20% { left: 140%; }
+            100% { left: 140%; }
+        }
+
+        .luxury-btn:hover, .luxury-btn:active {
+            background: rgba(255, 255, 255, 0.16);
+            border-color: rgba(255, 215, 170, 0.8);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45), 0 0 30px rgba(226, 135, 67, 0.4);
+        }
+
+        .luxury-btn .arrow-icon {
+            font-size: 0.95rem;
+            transition: transform 0.4s ease;
+            display: inline-block;
+        }
+
+        .luxury-btn.opened .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        /* مساحة ومستطيل الرسالة الفاخرة */
+        .letter-container {
+            width: 100%;
+            max-width: 440px;
+            padding: 0 20px;
+            z-index: 2;
+            display: none;
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .letter-container.show {
+            display: block;
+        }
+
+        .letter-container.revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .letter-card {
+            background: linear-gradient(155deg, rgba(48, 23, 11, 0.78), rgba(24, 10, 4, 0.88));
+            border: 1px solid rgba(226, 170, 110, 0.38);
+            border-radius: 26px;
+            padding: 42px 30px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6),
+                        0 0 40px rgba(226, 135, 67, 0.18),
+                        inset 0 1px 2px rgba(255, 255, 255, 0.22);
+            text-align: center;
+            position: relative;
+        }
+
+        /* خطوط وزخرفة ذهبية أنيقة أعلى وأسفل الرسالة */
+        .gold-line {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #e2aa6e, transparent);
+            margin: 0 auto 22px auto;
+        }
+
+        .gold-line.bottom {
+            margin: 22px auto 0 auto;
+        }
+
+        /* نص الرسالة بخط أميري الفاخر */
+        .letter-message {
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #ffe8d6;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+            text-shadow: 0 3px 15px rgba(226, 135, 67, 0.4);
+            margin: 0;
+            word-break: break-word;
         }
 
         /* تنسيقات أنيميشن الفراشات الساقطة */
@@ -71,6 +214,7 @@
         @keyframes fall {
             0% {
                 transform: translateY(0) rotate(0deg) translateX(0);
+                opacity: 1;
             }
             50% {
                 transform: translateY(50vh) rotate(15deg) translateX(15px);
@@ -95,9 +239,26 @@
             loading="eager"
             reveal="auto">
         </model-viewer>
+
+        <!-- زر شفاف فاخر -->
+        <div class="btn-wrapper">
+            <button id="open-letter-btn" class="luxury-btn">
+                <span>اضغط هنا</span>
+                <span class="arrow-icon">▼</span>
+            </button>
+        </div>
     </div>
 
-    <!-- مشغل الصوت المدمج والمتوافق 100% مع الجوالات (iPhone و Android) والكمبيوتر -->
+    <!-- مستطيل الرسالة الفاخرة ينفتح بالأسفل عند الضغط على الزر -->
+    <div id="letter-section" class="letter-container">
+        <div class="letter-card">
+            <div class="gold-line"></div>
+            <p class="letter-message" id="message-text">السلام عليكم</p>
+            <div class="gold-line bottom"></div>
+        </div>
+    </div>
+
+    <!-- مشغل الصوت المدمج والمتوافق مع الجوال والكمبيوتر -->
     <audio id="bg-audio" loop preload="auto" playsinline>
         <source src="song.mp3" type="audio/mpeg">
         <source src="song.m4a" type="audio/mp4">
@@ -129,38 +290,52 @@
 
         setInterval(createButterfly, 400);
 
-        // --- نظام تشغيل الصوت المتوافق مع الجوالات وأجهزة الكمبيوتر ---
+        // --- نظام تشغيل الصوت ---
         const bgAudio = document.getElementById('bg-audio');
 
-        // 1. محاولة التشغيل التلقائي فور فتح الصفحة (للكمبيوتر والمتصفحات الداعمة)
-        function tryAutoplay() {
-            if (!bgAudio) return;
-            const playPromise = bgAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    // سياسة المتصفح في الهواتف تمنع الصوت قبل أول لمسة
-                });
+        function playAudio() {
+            if (bgAudio && bgAudio.paused) {
+                bgAudio.play().catch(() => {});
             }
         }
 
-        // 2. للهواتف الذكية (iOS Safari و Android): أول لمسة في أي مكان بالشاشة تشغل الصوت فوراً
-        function handleMobileInteraction() {
-            if (!bgAudio) return;
-            bgAudio.play().then(() => {
-                ['touchstart', 'touchend', 'click', 'pointerdown'].forEach(evt => {
-                    window.removeEventListener(evt, handleMobileInteraction);
-                });
-            }).catch(() => {});
-        }
+        // محاولة التشغيل عند البداية
+        document.addEventListener('DOMContentLoaded', playAudio);
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', tryAutoplay);
-        } else {
-            tryAutoplay();
+        // تشغيل الصوت عند أي لمسة أولى على الشاشة
+        function handleFirstTouch() {
+            playAudio();
+            ['touchstart', 'touchend', 'click', 'pointerdown'].forEach(evt => {
+                window.removeEventListener(evt, handleFirstTouch);
+            });
         }
-
         ['touchstart', 'touchend', 'click', 'pointerdown'].forEach(evt => {
-            window.addEventListener(evt, handleMobileInteraction, { passive: true });
+            window.addEventListener(evt, handleFirstTouch, { passive: true });
+        });
+
+        // --- زر فتح الرسالة بالأسفل مع التمرير السلس ---
+        const openBtn = document.getElementById('open-letter-btn');
+        const letterSection = document.getElementById('letter-section');
+
+        openBtn.addEventListener('click', () => {
+            // تشغيل الصوت إذا لم يكن قد بدأ بعد
+            playAudio();
+
+            const isShown = letterSection.classList.contains('show');
+
+            if (!isShown) {
+                letterSection.classList.add('show');
+                // حركة فتح سلسة وفخمة
+                setTimeout(() => {
+                    letterSection.classList.add('revealed');
+                    openBtn.classList.add('opened');
+                    // تمرير سلس نحو الرسالة لتظهر في الشاشة بشكل مريح
+                    letterSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 30);
+            } else {
+                // تمرير مباشر إليها إذا كانت مفتوحة مسبقاً
+                letterSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         });
     </script>
 </body>
