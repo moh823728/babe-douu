@@ -42,51 +42,50 @@
             align-items: center;
             color: #ffffff;
             position: relative;
-            padding-bottom: 70px;
+            padding-bottom: 80px;
         }
 
         .mobile-container {
             width: 100%;
             max-width: 440px;
-            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             position: relative;
-            padding: 20px 20px 40px 20px;
-            z-index: 2; /* حتى تكون المحتويات فوق تأثير الفراشات */
+            padding: 20px 20px 10px 20px;
+            z-index: 2;
         }
 
-        /* تنسيق عنصر عرض الـ 3D في المنتصف */
+        /* تنسيق عنصر عرض الـ 3D */
         model-viewer {
             width: 100%;
-            height: 380px;
+            height: 360px;
             background-color: transparent;
             --poster-color: transparent;
             --progress-bar-color: #e2aa6e;
             --progress-bar-height: 3px;
         }
 
-        /* زر فاخر وشفاف يواكب المظهر الأنيق */
+        /* زر فاخر وشفاف يواكب المظهر الملكي */
         .btn-wrapper {
-            margin-top: 15px;
+            margin-top: 10px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: center;
             width: 100%;
         }
 
         .luxury-btn {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.07);
             border: 1px solid rgba(226, 170, 110, 0.45);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             color: #fff2e6;
             font-family: 'Tajawal', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 500;
             letter-spacing: 0.5px;
-            padding: 13px 40px;
+            padding: 12px 36px;
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35), 0 0 20px rgba(226, 135, 67, 0.2);
@@ -132,8 +131,8 @@
         }
 
         .luxury-btn .arrow-icon {
-            font-size: 0.95rem;
-            transition: transform 0.4s ease;
+            font-size: 0.9rem;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: inline-block;
         }
 
@@ -141,64 +140,128 @@
             transform: rotate(180deg);
         }
 
-        /* مساحة ومستطيل الرسالة الفاخرة */
-        .letter-container {
+        /* حاوية الرسالة الفاخرة مع أنيميشن الفتح الملكي الانسيابي من الأعلى */
+        .letter-wrapper {
             width: 100%;
-            max-width: 440px;
-            padding: 0 20px;
+            max-width: 420px;
+            padding: 0 18px;
             z-index: 2;
-            display: none;
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
             opacity: 0;
-            transform: translateY(40px) scale(0.95);
-            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-top: 5px;
         }
 
-        .letter-container.show {
-            display: block;
-        }
-
-        .letter-container.revealed {
+        .letter-wrapper.open {
+            grid-template-rows: 1fr;
             opacity: 1;
-            transform: translateY(0) scale(1);
         }
 
+        .letter-inner {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        /* كرت الرسالة الفاخرة */
         .letter-card {
-            background: linear-gradient(155deg, rgba(48, 23, 11, 0.78), rgba(24, 10, 4, 0.88));
-            border: 1px solid rgba(226, 170, 110, 0.38);
-            border-radius: 26px;
-            padding: 42px 30px;
+            background: linear-gradient(160deg, rgba(46, 21, 9, 0.88) 0%, rgba(22, 9, 3, 0.94) 100%);
+            border: 1px solid rgba(226, 170, 110, 0.4);
+            border-radius: 22px;
+            padding: 28px 24px 32px 24px;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6),
-                        0 0 40px rgba(226, 135, 67, 0.18),
-                        inset 0 1px 2px rgba(255, 255, 255, 0.22);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65),
+                        0 0 35px rgba(226, 135, 67, 0.16),
+                        inset 0 1px 1px rgba(255, 230, 200, 0.25);
             text-align: center;
             position: relative;
+            transform-origin: top center;
+            transform: perspective(800px) rotateX(-15deg) translateY(-15px);
+            transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* خطوط وزخرفة ذهبية أنيقة أعلى وأسفل الرسالة */
-        .gold-line {
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #e2aa6e, transparent);
-            margin: 0 auto 22px auto;
+        .letter-wrapper.open .letter-card {
+            transform: perspective(800px) rotateX(0deg) translateY(0);
         }
 
-        .gold-line.bottom {
-            margin: 22px auto 0 auto;
+        /* ختم أو أيقونة ملكية علوية ناعمة */
+        .letter-seal {
+            width: 36px;
+            height: 36px;
+            margin: 0 auto 12px auto;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(226, 170, 110, 0.3) 0%, rgba(60, 25, 10, 0.2) 70%);
+            border: 1px solid rgba(226, 170, 110, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f7dcd0;
+            font-size: 1.1rem;
+            box-shadow: 0 0 15px rgba(226, 135, 67, 0.3);
         }
 
-        /* نص الرسالة بخط أميري الفاخر */
-        .letter-message {
+        /* زخرفة ذهبية كلاسيكية أنيقة */
+        .gold-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 10px auto 18px auto;
+            color: rgba(226, 170, 110, 0.7);
+            font-size: 0.75rem;
+        }
+
+        .gold-divider::before,
+        .gold-divider::after {
+            content: '';
+            height: 1px;
+            width: 45px;
+            background: linear-gradient(90deg, transparent, rgba(226, 170, 110, 0.6));
+        }
+
+        .gold-divider::after {
+            background: linear-gradient(90deg, rgba(226, 170, 110, 0.6), transparent);
+        }
+
+        /* عنوان / تحية الرسالة بخط أميري كلاسيكي جميل وحجم مناسب للهواتف */
+        .letter-greeting {
             font-family: 'Amiri', serif;
-            font-size: 2.2rem;
+            font-size: 1.45rem;
             font-weight: 700;
-            color: #ffe8d6;
-            line-height: 1.8;
-            letter-spacing: 0.5px;
-            text-shadow: 0 3px 15px rgba(226, 135, 67, 0.4);
+            color: #ffeedf;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(226, 135, 67, 0.35);
+        }
+
+        /* نص الرسالة ومحتواها بحجم مريح ومثالي لقراءة الهواتف */
+        
+        .letter-content p {
+            margin-bottom: 16px;
+            text-align: justify;
+            text-align-last: center;
+        }
+        .letter-content p:last-child {
+            margin-bottom: 0;
+        }
+        .letter-ending {
+            font-size: 1.25rem !important;
+            font-weight: 700;
+            color: #ffe0cc !important;
+            margin-top: 20px !important;
+            text-shadow: 0 0 15px rgba(226, 135, 67, 0.5);
+        }
+        
+        .letter-content {
+            font-family: 'Amiri', serif;
+            font-size: 1.05rem;
+            color: #f5d8c8;
+            line-height: 1.95;
+            font-weight: 400;
             margin: 0;
             word-break: break-word;
+            padding: 0 6px;
         }
 
         /* تنسيقات أنيميشن الفراشات الساقطة */
@@ -243,18 +306,38 @@
         <!-- زر شفاف فاخر -->
         <div class="btn-wrapper">
             <button id="open-letter-btn" class="luxury-btn">
-                <span>اضغطي هنا</span>
+                <span>اضغط هنا</span>
                 <span class="arrow-icon">▼</span>
             </button>
         </div>
-    </div>
 
-    <!-- مستطيل الرسالة الفاخرة ينفتح بالأسفل عند الضغط على الزر -->
-    <div id="letter-section" class="letter-container">
-        <div class="letter-card">
-            <div class="gold-line"></div>
-            <p class="letter-message" id="message-text">وفي هاذا اليوم ياحلوة تاع قلبي انا حاب نقلك يا اجمل وحده في عيد الحب يا اروع ما شافته عيني وحياتي كامله حاب نقلك بلي نحبك بزاف والله ياعمري قلبي نتي ونموت عليك ونعشقك وحد عشق حتي انا منقدرش نستوعبه حاب نقلك ديمه كوني مليحه ياعمري نتي وضحكنك ساحره وبلي انا ديمة راح نقعد نحبك مهما صرا بينتنا ياقلبي نتي بيسك انا منقدرش نعيش بلا بيك ودي حاجة تعرفيها يالحلوة نتي تاع قلبي حاب نقلك بلي نتي اكمل وحده ليوم وغدوا و مغد وحياتك كامله ياعمري نتي نحبك بزاف والله ونموت فيك ياعمري قلبي نتي نحب صحتك ونخاف عليك بزاف والله ياعمري حياتي انا عمري قلبي حياتي لازم تكون مليحه كتكوته تاعي انا قلبي وكي نزعف منك راهي علي جال مصلحتك و خوفي عليك ياعمري نتي بصح جام حاجه تدي بلاصتك ياقلبي نتي نحبك والله مش غير نحبك انا نعشقك والله نمزت فيك ياعمري نتي ثاني خدمتلك ورده شوفيها ياحلوة نتي ان شاء الله تعجبك ياقلبي نتي وحااب نقول لي عمري نحبك والله نعشقك بزاف ياعمري نتي ايا ضك نخليك تكملي ياعمري حاب برك تعرفي بلي نحبك ونتي احلا وحده كل يوم نحبككككك ياقلبي نتيى </p>
-            <div class="gold-line bottom"></div>
+        <!-- مستطيل الرسالة الفاخرة ينفتح مباشرة من الأعلى وبحجم أنيق ومريح للهاتف -->
+        <div id="letter-section" class="letter-wrapper">
+            <div class="letter-inner">
+                <div class="letter-card">
+                    <div class="letter-seal"></div>
+                    <h3 class="letter-greeting">يا حلوة تاع قلبي </h3>
+                    <div class="gold-divider"></div>
+                    
+                    <div class="letter-content" id="message-text">
+                        <p>وفي هاذا اليوم يا حلوة تاع قلبي، أنا حاب نقلك يا أجمل وحدة في عيد الحب، يا أروع ما شافته عيني وحياتي كاملة..</p>
+                        
+                        <p>حاب نقلك بلي نحبك بزاف والله يا عمري، قلبي نتي ونموت عليك، ونعشقك واحد العشق حتى أنا منقدرش نستوعبه </p>
+                        
+                        <p>حاب نقلك ديمة كوني مليحة يا عمري نتي، وضحكتك ساحرة.. وبلي أنا ديمة راح نقعد نحبك مهما صرا بيناتنا يا قلبي نتي، بيسك أنا منقدرش نعيش بلا بيك، وهذي حاجة تعرفيها يا الحلوة نتي تاع قلبي.</p>
+                        
+                        <p>حاب نقلك بلي نتي أجمل وحدة اليوم وغدوة ومبعد غد وحياتك كاملة يا عمري نتي.. نحبك بزاف والله ونموت فيك يا عمري قلبي نتي، نحب صحتك ونخاف عليك بزاف والله يا عمري حياتي أنا.. عمري قلبي حياتي لازم تكون مليحة كتكوتة تاعي أنا قلبي </p>
+                        
+                        <p>وكي نزعف منك راهي على جال مصلحتك وخوفي عليك يا عمري نتي، بصح جامي حاجة تدي بلاصتك يا قلبي نتي.. نحبك والله مش غير نحبك أنا نعشقك والله، نموت فيك يا عمري نتي!</p>
+                        
+                        <p>ثاني خدمتلك وردة شوفيها يا حلوة نتي إن شاء الله تعجبك يا قلبي نتي سمحيلي كي منفدرش نمدهالك في يدك</p>
+                        
+                        <p>وحاب نقول لعمري نحبك والله نعشقك بزاف يا عمري نتي.. أيا ضرك نخليك تكملي يا عمري، حاب برك تعرفي بلي نحبك ونتي أحلى وحدة كل يوم..</p>
+                        
+                        <p class="letter-ending">نحبككككك يا قلبي نتي </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -299,10 +382,8 @@
             }
         }
 
-        // محاولة التشغيل عند البداية
         document.addEventListener('DOMContentLoaded', playAudio);
 
-        // تشغيل الصوت عند أي لمسة أولى على الشاشة
         function handleFirstTouch() {
             playAudio();
             ['touchstart', 'touchend', 'click', 'pointerdown'].forEach(evt => {
@@ -313,28 +394,33 @@
             window.addEventListener(evt, handleFirstTouch, { passive: true });
         });
 
-        // --- زر فتح الرسالة بالأسفل مع التمرير السلس ---
+        // --- زر فتح الرسالة مع أنيميشن انسيابي يبدأ من أعلى الرسالة ---
         const openBtn = document.getElementById('open-letter-btn');
         const letterSection = document.getElementById('letter-section');
 
         openBtn.addEventListener('click', () => {
-            // تشغيل الصوت إذا لم يكن قد بدأ بعد
             playAudio();
 
-            const isShown = letterSection.classList.contains('show');
+            const isOpen = letterSection.classList.contains('open');
 
-            if (!isShown) {
-                letterSection.classList.add('show');
-                // حركة فتح سلسة وفخمة
+            if (!isOpen) {
+                // فتح الرسالة بحركة انسيابية من الأعلى
+                letterSection.classList.add('open');
+                openBtn.classList.add('opened');
+
+                // التمرير الذكي: ينزل برفق ليظهر بداية الرسالة من أولها تماماً (وليس من الوسط)
                 setTimeout(() => {
-                    letterSection.classList.add('revealed');
-                    openBtn.classList.add('opened');
-                    // تمرير سلس نحو الرسالة لتظهر في الشاشة بشكل مريح
-                    letterSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 30);
+                    const btnRect = openBtn.getBoundingClientRect();
+                    const targetScrollY = window.pageYOffset + btnRect.top - 20;
+                    window.scrollTo({
+                        top: targetScrollY,
+                        behavior: 'smooth'
+                    });
+                }, 100);
             } else {
-                // تمرير مباشر إليها إذا كانت مفتوحة مسبقاً
-                letterSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // إغلاق الرسالة برفق عند الضغط مجدداً
+                letterSection.classList.remove('open');
+                openBtn.classList.remove('opened');
             }
         });
     </script>
